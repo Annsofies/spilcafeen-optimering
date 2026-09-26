@@ -56,7 +56,7 @@ function displayGame(game) {
       alt = "Poster of "${game.title}"
       class= "game-poster"/>
       <div class= "game-info">
-      <h3>${game.title}</h3>
+      <h2>${game.title}</h2>
       
 
       
@@ -137,17 +137,27 @@ function populateGenreDropdown() {
 // #6: Vis game i modal dialog - popup vindue med spil detaljer
 function showGameModal(game) {
   // Find modal indhold container og byg HTML struktur dynamisk
-  document.querySelector("#dialog-content").innerHTML = /*html*/ `
-    <img src="${game.image}" alt="Poster af ${game.title}" class="game-poster">
-    <div class="dialog-details">
-      <h2>${game.title} 
-  <p class="game-genre">${
-    Array.isArray(game.genre) ? game.genre.join(", ") : game.genre || ""
-  }</p>
-      <p class="game-rating">⭐ ${game.rating}</p>
-      <p class="game-description">${game.description}</p>
-    </div>
-  `;
+ document.querySelector("#dialog-content").innerHTML = /*html*/ `
+  <img 
+    src="${game.image}" 
+    alt="Poster af ${game.title}" 
+    class="game-poster"
+  >
+
+  <div class="dialog-details">
+    <h2>${game.title}</h2>
+
+    <p class="game-genre">
+      ${Array.isArray(game.genre) ? game.genre.join(", ") : game.genre || ""}
+    </p>
+
+    <p class="game-rating">⭐ ${game.rating}</p>
+
+    <p class="game-description">
+      ${game.description}
+    </p>
+  </div>
+`;
 
   // Åbn modalen - showModal() er en built-in browser funktion
   document.querySelector("#game-dialog").showModal();
