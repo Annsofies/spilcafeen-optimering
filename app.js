@@ -10,19 +10,22 @@ let allGames = [];
 // #1: Initialize the app - sæt event listeners og hent data
 function initApp() {
   getGames(); // Hent film data fra JSON fil
-
   document
     .querySelector("#search-input")
     .addEventListener("input", filterGames);
+
   document
     .querySelector("#genre-select1")
     .addEventListener("change", filterGames);
+
   document
     .querySelector("#genre-select2")
     .addEventListener("change", filterGames);
+
   document
     .querySelector("#players-select")
     .addEventListener("change", filterGames);
+
   document
     .querySelector("#clear-filters")
     .addEventListener("click", clearAllFilters);
@@ -31,7 +34,7 @@ function initApp() {
 async function getGames() {
   // Hent data fra URL - await venter på svar før vi går videre
   let response = await fetch(
-    "https://raw.githubusercontent.com/cederdorff/race/refs/heads/master/data/games.json"
+    "https://raw.githubusercontent.com/cederdorff/race/refs/heads/master/data/games.json",
   );
 
   allGames = await response.json();
@@ -51,21 +54,35 @@ function displayGame(game) {
 
   // Byg HTML struktur dynamisk - template literal med ${} til at indsætte data
   const gameHTML = `
-  <article class="game-card" tabindex ="0">
-    <img src = "${game.image}"
-      alt = "Poster of "${game.title}"
-      class= "game-poster"/>
-      <div class= "game-info">
-      <h2>${game.title}</h2>
-      
+  <article class="game-card" tabindex="0">
+    <img
+      src="${game.image}"
+      alt="Forside til ${game.title}"
+      class="game-poster"
+      loading="lazy"
+    />
 
-      
-      <p class= "game-rating">⭐ ${game.rating}</p>
-      <p class= "game-playtime">Ca. ${game.playtime} min.</p>
-      <p class= "game-players">${game.players.min} - ${game.players.max} spillere</p>
-      <p class= "game-genre">${game.genre}</p>
-      </div>
-  </article>`;
+    <div class="game-info">
+      <h2>${game.title}</h2>
+
+      <p class="game-rating" aria-label="Rating ${game.rating} ud af 5">
+        ★ ${game.rating}
+      </p>
+
+      <p class="game-playtime">
+        Ca. ${game.playtime} min.
+      </p>
+
+      <p class="game-players">
+        ${game.players.min} - ${game.players.max} spillere
+      </p>
+
+      <p class="game-genre">
+        ${Array.isArray(game.genre) ? game.genre.join(", ") : game.genre}
+      </p>
+    </div>
+  </article>
+`;
 
   // Tilføj game card til DOM (HTML) - insertAdjacentHTML sætter HTML ind uden at overskrive
   gameList.insertAdjacentHTML("beforeend", gameHTML);
@@ -134,32 +151,44 @@ function populateGenreDropdown() {
   });
 }
 
-// #6: Vis game i modal dialog - popup vindue med spil detaljer
+// #6: Vis game i modal dialog - popup vindue med spil detaljerx
+// Find modal indhold container og byg HTML struktur dynamisk
 function showGameModal(game) {
-  // Find modal indhold container og byg HTML struktur dynamisk
- document.querySelector("#dialog-content").innerHTML = /*html*/ `
-  <img 
-    src="${game.image}" 
-    alt="Poster af ${game.title}" 
-    class="game-poster"
-  >
+  document.querySelector("#dialog-content").innerHTML = `
+    <img
+      src="${game.image}"
+      alt="Forside til ${game.title}"
+      class="game-poster"
+    />
 
-  <div class="dialog-details">
-    <h2>${game.title}</h2>
+    <div class="dialog-details">
+      <h2>${game.title}</h2>
 
-    <p class="game-genre">
-      ${Array.isArray(game.genre) ? game.genre.join(", ") : game.genre || ""}
-    </p>
+      <p class="game-rating" aria-label="Rating ${game.rating} ud af 5">
+        ★ ${game.rating}
+      </p>
 
-    <p class="game-rating">⭐ ${game.rating}</p>
+      <p>
+        <strong>Spilletid:</strong>
+        Ca. ${game.playtime} min.
+      </p>
 
-    <p class="game-description">
-      ${game.description}
-    </p>
-  </div>
-`;
+      <p>
+        <strong>Antal spillere:</strong>
+        ${game.players.min} - ${game.players.max}
+      </p>
 
-  // Åbn modalen - showModal() er en built-in browser funktion
+      <p>
+        <strong>Kategori:</strong>
+        ${Array.isArray(game.genre) ? game.genre.join(", ") : game.genre || ""}
+      </p>
+
+      <p class="game-description">
+        ${game.description}
+      </p>
+    </div>
+  `;
+
   document.querySelector("#game-dialog").showModal();
 }
 
@@ -192,7 +221,7 @@ function filterGames() {
   // FILTER 1: Søgetekst - filtrer på spil titel
   if (searchValue) {
     filteredGames = filteredGames.filter((game) =>
-      game.title.toLowerCase().includes(searchValue)
+      game.title.toLowerCase().includes(searchValue),
     );
   }
 
@@ -204,7 +233,7 @@ function filterGames() {
   // FILTER 3: Genre 2 - filtrer på valgt varighed (playtime in minutes)
   if (genre2Value !== "all") {
     filteredGames = filteredGames.filter(
-      (game) => String(game.playtime) === genre2Value
+      (game) => String(game.playtime) === genre2Value,
     );
   }
 
@@ -213,7 +242,7 @@ function filterGames() {
     const num = Number(playersValue);
     filteredGames = filteredGames.filter(
       (game) =>
-        game.players && num >= game.players.min && num <= game.players.max
+        game.players && num >= game.players.min && num <= game.players.max,
     );
   }
 

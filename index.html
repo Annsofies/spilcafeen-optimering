@@ -12,23 +12,55 @@
   </head>
 
   <body>
-    <header>
-      <h1>Spiloversigt</h1>
+    <header class="topbar">
+      <div class="topbar-logo">Spilcaféen</div>
+
+      <button class="book-btn" type="button">Book Bord</button>
+
+      <button class="menu-btn" type="button" aria-label="Åbn menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </header>
 
     <main>
-      <!-- Search Bar -->
+      <!-- Søg -->
+      <section class="intro">
+        <div class="intro-logo">
+          <img src="img/logo.png" alt="Spilcaféen" />
+        </div>
+
+        <h1>Spiloversigt</h1>
+
+        <p>
+          Vores fulde samling af brætspil – søg efter et bestemt spil, eller
+          filtrer på café, antal spillere og spilletid.
+        </p>
+      </section>
       <div class="searchbar-container">
         <label for="search-input" class="visually-hidden">Søg efter spil</label>
-        <input
-          id="search-input"
-          type="search"
-          placeholder="Søg efter et bestemt spil..."
-        />
+
+        <div class="search-wrapper">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Søg efter et bestemt spil..."
+          />
+        </div>
       </div>
 
-      <!-- Filter Bar -->
+      <!-- Filtre -->
       <section class="filterbar" aria-label="Filtrér spil">
+        <!-- Café -->
+        <div class="filter-group">
+          <label for="cafe-select" class="visually-hidden"> Vælg café </label>
+          <select id="cafe-select">
+            <option value="all">Alle caféer</option>
+          </select>
+        </div>
+
         <!-- Antal spillere -->
         <div class="filter-group">
           <label for="players-select" class="visually-hidden">
@@ -37,50 +69,62 @@
           <select id="players-select"></select>
         </div>
 
-        <!-- Varighed -->
+        <!-- Genre -->
         <div class="filter-group">
-          <label for="genre-select2" class="visually-hidden"> Varighed </label>
-          <select id="genre-select2"></select>
-        </div>
-
-        <!-- Kategori -->
-        <div class="filter-group">
-          <label for="genre-select1" class="visually-hidden"> Kategori </label>
+          <label for="genre-select1" class="visually-hidden"> Genrer </label>
           <select id="genre-select1"></select>
         </div>
 
-        <!-- Flere filtre -->
-        <button
-          id="more-filters"
-          class="more-filters-btn"
-          type="button"
-          aria-expanded="false"
-          aria-controls="more-filters-menu"
-        >
-          Flere filtre
-        </button>
+        <!-- Tid -->
+        <div class="filter-group">
+          <label for="genre-select2" class="visually-hidden"> Tid </label>
+          <select id="genre-select2"></select>
+        </div>
 
-        <!-- Ryd filtre -->
+        <!-- Ryd filter -->
         <button id="clear-filters" class="clear-btn" type="button">
-          <span class="btn-icon" aria-hidden="true"></span>
-          <span class="btn-text">Ryd filtre</span>
+          <span aria-hidden="true">↻</span>
+          <span>Ryd filter</span>
         </button>
       </section>
-      <!-- Game List -->
-      <section id="game-list">
-        <!-- Game cards will be rendered here by JavaScript -->
+
+      <!-- Spil -->
+      <section class="popular-heading">
+        <h2>Mest Populært</h2>
+      </section>
+      <section id="game-list" aria-label="Spil">
+        <!-- Genereres med JavaScript -->
       </section>
     </main>
 
+    <footer>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#">Kontakt</a>
+        <a href="#">Konkurrence</a>
+        <a href="#">Bookinginfo</a>
+      </nav>
+
+      <div class="footer-socials">
+        <span>TikTok</span>
+        <span>Instagram</span>
+        <span>Facebook</span>
+      </div>
+    </footer>
+
+    <!-- Åbnet spil -->
     <dialog id="game-dialog">
-      <div id="dialog-content"></div>
       <button
         id="close-dialog"
+        type="button"
+        aria-label="Luk spil"
         onclick="document.getElementById('game-dialog').close()"
       >
-        Luk
+        ×
       </button>
+
+      <div id="dialog-content"></div>
     </dialog>
+
     <script src="app.js"></script>
   </body>
 </html>
