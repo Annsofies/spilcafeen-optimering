@@ -530,6 +530,34 @@ footer {
   display: block;
   margin: 0 auto;
 }
+/* ===== FOOTER MOBIL ===== */
+@media (max-width: 600px) {
+  footer {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 16px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 12px;
+  }
+
+  .footer-links,
+  .footer-socials {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .footer-links a,
+  .footer-socials span {
+    white-space: nowrap;
+  }
+}
 
 .sort-container {
   width: min(1100px, 90%);
