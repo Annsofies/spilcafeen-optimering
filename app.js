@@ -29,6 +29,10 @@ function initApp() {
   document
     .querySelector("#clear-filters")
     .addEventListener("click", clearAllFilters);
+
+  document
+    .querySelector("#sort-select")
+    .addEventListener("change", filterGames);
 }
 
 async function getGames() {
@@ -75,7 +79,7 @@ function displayGame(game) {
 
   // Byg HTML struktur dynamisk - template literal med ${} til at indsætte data
   const gameHTML = `
-  <article class="game-card" tabindex="0">
+  <article class="game-card">
     <img
       src="${getGameImage(game)}"
       alt="Forside til ${game.title}"
@@ -101,6 +105,14 @@ function displayGame(game) {
       <p class="game-genre">
         ${Array.isArray(game.genre) ? game.genre.join(", ") : game.genre}
       </p>
+
+      <button
+        class="read-more-btn"
+        type="button"
+        aria-label="Læs mere om ${game.title}"
+      >
+        Læs mere om spillet
+      </button>
     </div>
   </article>
 `;
@@ -110,18 +122,10 @@ function displayGame(game) {
 
   // Find det kort vi lige har tilføjet (det sidste element)
   const newCard = gameList.lastElementChild;
+  const readMoreButton = newCard.querySelector(".read-more-btn");
 
-  // Tilføj click event til kortet - når brugeren klikker på kortet
-  newCard.addEventListener("click", function () {
-    showGameModal(game); //
-  });
-
-  // Tilføj keyboard support (Enter og mellemrum) for tilgængelighed
-  newCard.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault(); // Forhindre scroll ved mellemrum
-      showGameModal(game); //
-    }
+  readMoreButton.addEventListener("click", function () {
+    showGameModal(game);
   });
 }
 
@@ -270,6 +274,21 @@ function filterGames() {
       (game) =>
         game.players && num >= game.players.min && num <= game.players.max,
     );
+  }
+
+  // Sortering
+  const sortValue = document.querySelector("#sort-select").value;
+
+  if (sortValue === "popular") {
+    filteredGames.sort((a, b) => Number(b.rating) - Number(a.rating));
+  }
+
+  if (sortValue === "az") {
+    filteredGames.sort((a, b) => a.title.localeCompare(b.title, "da"));
+  }
+
+  if (sortValue === "za") {
+    filteredGames.sort((a, b) => b.title.localeCompare(a.title, "da"));
   }
 
   displayGames(filteredGames);

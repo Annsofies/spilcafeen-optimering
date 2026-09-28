@@ -108,7 +108,7 @@ main {
   flex-wrap: wrap;
 
   width: min(1100px, 90%);
-  margin: 18px auto 35px;
+  margin: 18px auto 100px;
 }
 
 .filter-group select {
@@ -189,6 +189,30 @@ main {
   padding: 12px;
 }
 
+.read-more-btn {
+  display: block;
+  margin: 15px 0 0 auto;
+  padding: 5px 10px;
+
+  background: #f1efed;
+  color: #111;
+
+  border: 1px solid #111;
+  border-radius: 12px;
+
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.read-more-btn:hover {
+  background: #ddd9d6;
+}
+
+.read-more-btn:focus-visible {
+  outline: 3px solid #111;
+  outline-offset: 3px;
+}
+
 .game-info {
   position: relative;
   padding: 16px 18px 20px;
@@ -245,15 +269,27 @@ main {
 
 #close-dialog {
   position: absolute;
-  top: 15px;
-  right: 18px;
-  width: 42px;
-  height: 42px;
+  top: 18px;
+  right: 22px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
   border: 0;
   background: transparent;
-  font-size: 2rem;
+  color: #111;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
   cursor: pointer;
   z-index: 10;
+}
+
+.close-icon {
+  font-size: 2rem;
+  line-height: 1;
 }
 
 #dialog-content {
@@ -456,24 +492,6 @@ main {
 }
 
 /* =====================
-   MEST POPULÆRT
-   ===================== */
-
-.popular-heading {
-  width: 100%;
-  background: #d8d5d3;
-  text-align: center;
-  padding: 12px;
-  margin-top: 35px;
-  margin-bottom: 40px;
-}
-
-.popular-heading h2 {
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-/* =====================
    FOOTER
    ===================== */
 
@@ -511,4 +529,30 @@ footer {
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+.sort-container {
+  width: min(1100px, 90%);
+  margin: 0 auto 20px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 0.85rem;
+}
+
+.sort-container label {
+  font-weight: 400;
+}
+
+#sort-select {
+  border: 0;
+  background: transparent;
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
 }

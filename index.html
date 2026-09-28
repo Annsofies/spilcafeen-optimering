@@ -88,10 +88,17 @@
         </button>
       </section>
 
+      <div class="sort-container">
+        <label for="sort-select">Sorter efter:</label>
+
+        <select id="sort-select">
+          <option value="popular">Mest populær</option>
+          <option value="az">A-Å</option>
+          <option value="za">Å-A</option>
+        </select>
+      </div>
+
       <!-- Spil -->
-      <section class="popular-heading">
-        <h2>Mest Populært</h2>
-      </section>
       <section id="game-list" aria-label="Spil">
         <!-- Genereres med JavaScript -->
       </section>
@@ -119,7 +126,8 @@
         aria-label="Luk spil"
         onclick="document.getElementById('game-dialog').close()"
       >
-        ×
+        <span>Luk</span>
+        <span class="close-icon" aria-hidden="true">×</span>
       </button>
 
       <div id="dialog-content"></div>
