@@ -49,6 +49,27 @@ for (const game of allGames) {
 }
 
 // #4: Render a single game card and add event listeners - lav et spil kort
+
+function getGameImage(game) {
+  const localImages = {
+    Backgammon: "img/backgammon.webp",
+    Catan: "img/catan.webp",
+    Cluedo: "img/cluedo.webp",
+    Ludo: "img/ludo.webp",
+    Matador: "img/matador.webp",
+    Monopoly: "img/monopoly.webp",
+    Partners: "img/partners.webp",
+    Risk: "img/risk.webp",
+    Sequence: "img/sequence.webp",
+    Skak: "img/skak.webp",
+    Stratego: "img/stratego.webp",
+    Uno: "img/uno.webp",
+    Yatzy: "img/yatzy.webp",
+  };
+
+  return localImages[game.title] || game.image;
+}
+
 function displayGame(game) {
   const gameList = document.querySelector("#game-list"); // Find container til film
 
@@ -56,7 +77,7 @@ function displayGame(game) {
   const gameHTML = `
   <article class="game-card" tabindex="0">
     <img
-      src="${game.image}"
+      src="${getGameImage(game)}"
       alt="Forside til ${game.title}"
       class="game-poster"
       loading="lazy"
@@ -129,8 +150,13 @@ function populateGenreDropdown() {
   // Genre dropdown
   const genreSelect = document.querySelector("#genre-select1");
   const genres = new Set();
+
   for (const game of allGames) {
-    if (game.genre) genres.add(game.genre);
+    if (Array.isArray(game.genre)) {
+      game.genre.forEach((genre) => genres.add(genre));
+    } else if (game.genre) {
+      genres.add(game.genre);
+    }
   }
   genreSelect.innerHTML = '<option value="all">Kategori</option>';
   genres.forEach((genre) => {
@@ -156,7 +182,7 @@ function populateGenreDropdown() {
 function showGameModal(game) {
   document.querySelector("#dialog-content").innerHTML = `
     <img
-      src="${game.image}"
+      src="${getGameImage(game)}"
       alt="Forside til ${game.title}"
       class="game-poster"
     />
