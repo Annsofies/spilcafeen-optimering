@@ -69,6 +69,19 @@ function getGameImage(game) {
     Stratego: "img/stratego.webp",
     Uno: "img/uno.webp",
     Yatzy: "img/yatzy.webp",
+
+    "Ticket to Ride: Europe": "img/ticket-to-ride.webp",
+    Pandemic: "img/pandemic.webp",
+    Azul: "img/azul.webp",
+    Dixit: "img/dixit.webp",
+    Codenames: "img/codenames.webp",
+    "7 Wonders": "img/7wonders.webp",
+    Scrabble: "img/scrabble.webp",
+    "Exploding Kittens": "img/exploding-kittens.webp",
+    Bezzerwizzer: "img/bezzerwizzer.webp",
+    "Det Dårlige Selskab": "img/det-daarlige-selskab.webp",
+    "Secret Hitler": "img/secret-hitler.webp",
+    Carcassonne: "img/carcassonne.webp",
   };
 
   return localImages[game.title] || game.image;
